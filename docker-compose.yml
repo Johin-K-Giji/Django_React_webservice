@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend/user-client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # Map port 80 inside the container to port 3000 on the host
+    networks:
+      - webnet
+
+  backend:
+    build:
+      context: ./backend/user_api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Map port 8000 inside the container to port 8000 on the host
+    networks:
+      - webnet
+    volumes:
+      - ./backend/user_api:/app
+
+networks:
+  webnet:
